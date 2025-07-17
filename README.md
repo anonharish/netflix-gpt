@@ -6,6 +6,9 @@
 5. sign/signUp form 
 6. validations for the form 
 7. useRef hook
+8. firebase setup
+9. deployment in firebase
+10. create an signup user account
 
 ## Project structure
  # 1.Login/sigup
