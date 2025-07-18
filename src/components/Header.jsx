@@ -9,16 +9,13 @@ import netflixDefaultAvatar from "../assets/Netflix-avatar.png";
 
 const Header = () => {
   const user = useSelector((state) => state);
-  console.log(user, "inside header state");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSignOut = () => {
-    console.log("signedOut");
     signOut(auth)
       .then(() => {
         dispatch(removeUser());
         navigate("/");
-        console.log("signOut successfully");
       })
       .catch((error) => {
         console.log(error, "error in signOut call");

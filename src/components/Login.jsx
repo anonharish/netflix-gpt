@@ -6,12 +6,15 @@ import {
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { validateLogInForm, validateSignUpForm } from "../utils/validate";
+import { addUser } from "../store/userSlice";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import netflixBg from "../assets/netflix_bg.jpg";
 import Header from "./Header";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isSignInform, setIsSignInform] = useState(false);
   const [error, setError] = useState(null);
   const email = useRef(null);
@@ -40,14 +43,17 @@ const Login = () => {
               "https://t4.ftcdn.net/jpg/05/89/93/27/360_F_589932782_vQAEAZhHnq1QCGu5ikwrYaQD0Mmurm0N.jpg",
           })
             .then(() => {
-              navigate("/browse");
+              auth.currentUser.reload().then(() => {
+                const { photoURL, uid, displayName } = auth.currentUser;
+                dispatch(addUser({ photoURL, uid, displayName }));
+                navigate("/browse");
+              });
+              
             })
             .catch((error) => {
               setError(error);
               console.log(error, "error in update profile");
             });
-
-          console.log(user, "inside user");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -60,7 +66,6 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           navigate("/browse");
-          console.log(user, "signed user");
         })
         .catch((error) => {
           const errorCode = error.code;

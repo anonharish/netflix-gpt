@@ -22,10 +22,8 @@ const Body = () => {
   ]);
 
   useEffect(() => {
-    console.log("inside body");
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user, "inside onAuthStateChanged");
         const { photoURL, uid, displayName } = user;
         dispatch(addUser({ photoURL, uid, displayName }));
         // ...
