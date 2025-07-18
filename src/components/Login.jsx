@@ -9,6 +9,7 @@ import { validateLogInForm, validateSignUpForm } from "../utils/validate";
 import { addUser } from "../store/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { DEFAULT_PROFILE_URL } from "../utils/constants";
 import netflixBg from "../assets/netflix_bg.jpg";
 import Header from "./Header";
 
@@ -39,14 +40,12 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(auth.currentUser, {
             displayName: _name,
-            photoURL:
-              "https://t4.ftcdn.net/jpg/05/89/93/27/360_F_589932782_vQAEAZhHnq1QCGu5ikwrYaQD0Mmurm0N.jpg",
+            photoURL:DEFAULT_PROFILE_URL,
           })
             .then(() => {
               auth.currentUser.reload().then(() => {
                 const { photoURL, uid, displayName } = auth.currentUser;
                 dispatch(addUser({ photoURL, uid, displayName }));
-                navigate("/browse");
               });
               
             })
@@ -65,7 +64,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
