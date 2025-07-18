@@ -1,11 +1,17 @@
 import React, { useState, useRef } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { validateLogInForm, validateSignUpForm } from "../utils/validate";
+import { useNavigate } from "react-router";
 import netflixBg from "../assets/netflix_bg.jpg";
 import Header from "./Header";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [isSignInform, setIsSignInform] = useState(false);
   const [error, setError] = useState(null);
   const email = useRef(null);
@@ -28,16 +34,40 @@ const Login = () => {
       createUserWithEmailAndPassword(auth, _email, _pwd)
         .then((userCredential) => {
           const user = userCredential.user;
+          updateProfile(auth.currentUser, {
+            displayName: _name,
+            photoURL:
+              "https://t4.ftcdn.net/jpg/05/89/93/27/360_F_589932782_vQAEAZhHnq1QCGu5ikwrYaQD0Mmurm0N.jpg",
+          })
+            .then(() => {
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setError(error);
+              console.log(error, "error in update profile");
+            });
+
           console.log(user, "inside user");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          // ..
+          setError(errorMessage);
         });
     } else {
+      signInWithEmailAndPassword(auth, _email, _pwd)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          navigate("/browse");
+          console.log(user, "signed user");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setError(errorMessage);
+        });
     }
-    // console.log(isFormValid,"inside the submit")
   };
 
   return (
