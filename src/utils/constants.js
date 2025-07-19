@@ -3,6 +3,8 @@ export const DEFAULT_PROFILE_URL =
 
 export const API_BASE_URL = "https://api.themoviedb.org/3/";
 
+export const POSTER_IMG_URL = "https://image.tmdb.org/t/p/original/";
+
 export const API_OPTIONS = {
   method: "GET",
   headers: {
