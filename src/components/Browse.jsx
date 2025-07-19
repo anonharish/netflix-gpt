@@ -1,14 +1,16 @@
-import React from 'react'
-import Header from './Header';
+import React, { use } from "react";
+import Header from "./Header";
+import { useGetNowPlaying } from "../hooks/apiHookCalls/useGetNowPlaying";
+import MainContainer from "./mainContainer";
 
 const Browse = () => {
+  useGetNowPlaying();
   return (
     <>
-       <Header/>
-       <div>Browse</div>
+      <Header />
+      <MainContainer />
     </>
-   
-  )
-}
+  );
+};
 
 export default Browse;
