@@ -1,12 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useGetVideo } from "../hooks/apiHookCalls/useGetVideo";
 
 const VideoTitle = ({ movieMetaData }) => {
   const { title, overview, vote_count } = movieMetaData;
   return (
     <>
-      <div className="pt-40 pl-12 bg-gradient-to-r from-black text-white absolute top-0 z-[1] aspect-video">
+      <div className="pt-[20%] px-12 bg-gradient-to-r from-black text-white absolute top-0 z-[1] w-full h-full">
         <p className="text-4xl font-bold w-2/5 mb-3 ">{title}</p>
         <p className="text-lg font-bold mb-3 ">No.of votes: {vote_count}</p>
         <p className="text-lg w-2/5 mb-4">{overview}</p>

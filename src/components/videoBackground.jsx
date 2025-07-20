@@ -7,14 +7,13 @@ const VideoBackground = ({ videoid }) => {
   useGetVideo(videoid);
   if (!videoKey) return null;
   return (
-    <div className="absolute top-0 w-full h-screen">
+    <div className="w-full h-full">
       <iframe
-        className="w-full aspect-video "
+        className="w-full h-full"
         src={`https://www.youtube.com/embed/${videoKey}?autoplay=1&mute=1&loop=1&controls=0&playlist=${videoKey}`}
-        frameborder="0"
-        allowfullscreen
+        title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
+        allowFullScreen
       ></iframe>
     </div>
   );
