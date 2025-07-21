@@ -3,19 +3,24 @@ import MovieList from "./MovieList";
 import { useSelector } from "react-redux";
 
 const SeconderyContainer = () => {
-  const nowPlayingMovieList = useSelector(
-    (state) => state.movie.nowPlayingMovieList
+  const movieSliceState = useSelector(
+    (state) => state.movie
   );
+  const {nowPlayingMovieList,popularMovieList} = movieSliceState;
+  console.log(popularMovieList,"inside pop")
   // It's good practice to add a guard clause
   if (!nowPlayingMovieList) return null;
+  
 
   return (
     <div className="">
-      <div className="mt-2 relative z-20 ">
+      <div className="bg-black">
+        <div className="-mt-36 relative z-20 ">
         <MovieList title={"Now Playing"} data={nowPlayingMovieList} />
-        {/* You can add your other MovieList components here */}
-        {/* <MovieList title={"Trending"} data={trendingMovies} /> */}
-        {/* <MovieList title={"Popular"} data={popularMovies} /> */}
+      
+        <MovieList title={"Trending"} data={nowPlayingMovieList} />
+        {popularMovieList && <MovieList title={"Popular"} data={popularMovieList} />}
+        </div>
       </div>
     </div>
   );

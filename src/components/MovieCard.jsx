@@ -6,7 +6,7 @@ const MovieCard = ({cardData}) => {
   return (
     <>
         <div>
-            <img className = "w-48" src={`${POSTER_IMG_URL}${cardData.poster_path}`} alt="movie poster"/>
+            <img className = "w-48 mr-4" src={`${POSTER_IMG_URL}${cardData.poster_path}`} alt="movie poster"/>
         </div>
     </>
     
